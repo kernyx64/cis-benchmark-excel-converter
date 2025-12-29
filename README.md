@@ -1,78 +1,98 @@
-# CIS Benchmark Converter
+# CIS Benchmark to Excel Converter
 
-**Author:** Octomany  
-**LinkedIn:** [LinkedIn](https://www.linkedin.com/in/maxbeauchamp/)  
+> **Fork of:** [Octomany/cisbenchmarkconverter](https://github.com/Octomany/cisbenchmarkconverter)  
+> **Modified by:** kernyx64 | **Date:** December 29, 2025
 
-**Date Created:** 2024-11-06  
-**Last Update:** 2025-14-03
+Excel-focused fork for CIS compliance tracking with automated scoring and multi-OS support.
 
-## Description
+## Key Features
 
-`CIS Benchmark Converter` is a Python script that extracts recommendations from CIS Benchmark PDF documents and exports them into CSV, Excel, or JSON formats. The script converts unstructured PDF content into a structured table, simplifying compliance reviews and audits.
+- ✅ **Excel-only output** with professional formatting
+- ✅ **Automated SCORE sheet** with compliance percentages
+- ✅ **Status dropdown** (Compliant/Non-Compliant/To Review) + conditional formatting
+- ✅ **Multi-OS support** via JSON config with auto-detection
+- ✅ **One worksheet per section** - organized and easy to navigate
+- ✅ **Enhanced filtering** - removes section headers, keeps only real tests
 
-## Features
+## Screenshots
 
-- **Configurable Extraction:**  
-  Set the start page to skip tables of contents or disclaimers, and adjust the logging level via command-line options.
+### Excel Output with Dropdown & Worksheets
+![Excel Output Example](screenshots/excel_output_ws2022.png)
 
-- **Multiple Output Formats:**  
-  Export the extracted data as CSV (using a pipe `|` delimiter), Excel (with styled headers, dropdowns, and conditional formatting), or JSON for easy data integration.
+### SCORE Sheet with Compliance Tracking
+![SCORE Sheet Example](screenshots/score_tab.png)
 
-- **Robust and Maintainable:**  
-  Uses `pathlib` for modern file path management, extended type annotations for static type checking, enhanced exception handling, and a progress bar (via `tqdm`) for user feedback.
+## Supported OS
+
+| OS | Tested | start_page |
+|----|--------|------------|
+| Debian 13 | ✅ | 23 |
+| Debian 12 | ✅ | 23 |
+| Windows 11 | ✅ | 61 |
+| Windows Server 2022 | ✅ | 38 |
+| Ubuntu | ⚠️ Config ready | TBD |
 
 ## Installation
-
-1. Clone this repository.
-2. Install dependencies using the provided `requirements.txt`:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-   **requirements.txt:**
-   ```
-   pdfplumber
-   openpyxl
-   tqdm
-   ```
+```bash
+git clone https://github.com/kernyx64/cisbenchmarkconverter.git
+cd cisbenchmarkconverter
+pip install -r requirements.txt
+```
 
 ## Usage
-
-Run the script from the command line as follows:
-
 ```bash
-python cis_benchmark_converter.py \
-  -i path/to/input_file.pdf \
-  -o path/to/output_file \
-  -f [csv|excel|json] \
-  --start_page 10 \
-  --log_level INFO
+# Basic
+python cis_benchmark_converter_final.py -i input.pdf -o output.xlsx --start_page 23
+
+# Examples
+python cis_benchmark_converter_final.py -i CIS_Debian_13.pdf -o Debian13.xlsx --start_page 23
+python cis_benchmark_converter_final.py -i CIS_Windows_11.pdf -o Win11.xlsx --start_page 61
+python cis_benchmark_converter_final.py -i CIS_Windows_Server_2022.pdf -o WinSrv22.xlsx --start_page 38
 ```
 
-### Arguments
+## Output Structure
 
-- `-i, --input` : Path to the input CIS Benchmark PDF file (required).
-- `-o, --output` : Path to the output file (defaults to the input file name with a `.csv`, `.xlsx`, or `.json` extension).
-- `-f, --format` : Output file format: `csv`, `excel`, or `json` (default: `excel`).
-- `--start_page` : Page number to start extraction (default: 10).
-- `--log_level` : Logging level (`DEBUG`, `INFO`, `WARNING`, or `ERROR`; default: `INFO`).
+Each worksheet = one CIS section (e.g., ACCOUNT POLICIES, LOCAL POLICIES, etc.)
 
-## Example
+**Columns:**
+- Number, Title, **Status** (dropdown), Comments, Audit/Remediation scripts
+- All CIS fields: Profile, Description, Rationale, Impact, Audit, etc.
 
-```bash
-python cis_benchmark_converter.py -i ./CIS_AWS_Benchmark.pdf -o ./CIS_AWS_Benchmark.json -f json --start_page 10 --log_level INFO
+**SCORE Sheet:**
+- Total recommendations per section
+- Compliance counts and percentages
+- Conditional formatting: Compliant | Non-Compliant | To Review
+
+## Adding New OS
+
+Edit `cis_categories.json`:
+```json
+{
+  "rhel": {
+    "1": "INITIAL SETUP",
+    "2": "SERVICES",
+    "3": "NETWORK CONFIGURATION"
+  }
+}
 ```
 
-For JSON output, the data is structured as a list of dictionaries, with each dictionary representing a recommendation and its associated sections.
+Run with `--os-type rhel` or name your PDF `CIS_RHEL_*` for auto-detection.
 
-> **Note:** The script automatically excludes any sections labeled "CIS Controls" to focus solely on the core recommendations.
+## What's Different from Original?
 
-## Acknowledgements
+| Feature | Original | This Fork |
+|---------|----------|-----------|
+| Formats | CSV, JSON, Excel | **Excel only** |
+| Tracking | No | **Yes - dropdown + scoring** |
+| Multi-OS | Hardcoded | **JSON config** |
+| Organization | Single sheet | **One sheet per section** |
 
-Special thanks to [Flavien Fouqueray (UnBonWhisky)](https://www.linkedin.com/in/ffouqueray/) for his valuable bug fixes and contributions in earlier versions of this script.
+## Credits
 
-## License
+- **Original:** [Octomany](https://github.com/Octomany)
+- **Fork:** kernyx64
 
-This project is licensed under the MIT License. Please respect the copyrights
-of the CIS Benchmark documents when using and sharing this tool.
+---
+
+For the original multi-format converter, see [Octomany/cisbenchmarkconverter](https://github.com/Octomany/cisbenchmarkconverter) 
+```

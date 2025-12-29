@@ -1,0 +1,50 @@
+{
+  "debian": {
+    "1": "FILESYSTEM",
+    "2": "SERVICES",
+    "3": "NETWORK",
+    "4": "HOST BASED FIREWALL",
+    "5": "ACCESS CONTROL",
+    "6": "LOGGING AND AUDITING",
+    "7": "SYSTEM MAINTENANCE"
+  },
+  "ubuntu": {
+    "1": "FILESYSTEM",
+    "2": "SERVICES",
+    "3": "NETWORK",
+    "4": "HOST BASED FIREWALL",
+    "5": "ACCESS CONTROL",
+    "6": "LOGGING AND AUDITING",
+    "7": "SYSTEM MAINTENANCE"
+  },
+  "windows": {
+    "1": "ACCOUNT POLICIES",
+    "2": "LOCAL POLICIES",
+    "5": "SYSTEM SERVICES",
+    "9": "WINDOWS DEFENDER FIREWALL",
+    "17": "ADVANCED AUDIT POLICY",
+    "18": "ADMINISTRATIVE TEMPLATES (COMPUTER)",
+    "19": "ADMINISTRATIVE TEMPLATES (USER)"
+  },
+  "windows_server": {
+    "1": "ACCOUNT POLICIES",
+    "2": "LOCAL POLICIES",
+    "5": "SYSTEM SERVICES",
+    "9": "WINDOWS DEFENDER FIREWALL",
+    "17": "ADVANCED AUDIT POLICY",
+    "18": "ADMINISTRATIVE TEMPLATES (COMPUTER)",
+    "19": "ADMINISTRATIVE TEMPLATES (USER)"
+  },
+  "default": {
+    "1": "SECTION 1",
+    "2": "SECTION 2",
+    "3": "SECTION 3",
+    "4": "SECTION 4",
+    "5": "SECTION 5",
+    "6": "SECTION 6",
+    "7": "SECTION 7",
+    "8": "SECTION 8",
+    "9": "SECTION 9",
+    "10": "SECTION 10"
+  }
+}
